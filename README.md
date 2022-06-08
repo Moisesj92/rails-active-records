@@ -1,2 +1,9 @@
 # Notas de la clase
-## CRUD
+
+## Active Record
+
+### Métodos de los objetos
+### Validaciones
+### Callbacks
+### CRUD
+### Scopes
