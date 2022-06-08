@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_231412) do
 
   create_table "videos", force: :cascade do |t|
     t.string "title"
+    t.string "description"
     t.boolean "visible", default: false
     t.integer "duration", default: 0
     t.datetime "created_at", null: false

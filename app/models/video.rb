@@ -14,24 +14,16 @@ class Video < ApplicationRecord
 
   belongs_to :course
 
-  #validates son metodos predefinidos por ruby
-  validates :title, presence: true
+  validates :title, presence: true, message: 'El título es requerido.'
   validates :title, uniqueness: true
+  validates :title, length: { maximus: 200, minimun: 2 }
+
+  validate :custome_title
   
-
-  #El metodo para saber si un elemento es valido o no para persistirse es 
-  #elemento.valid?
-  
-  #para ver los errores elemento.errors
-  #para mas detalles elemento.errors.message
-
-
   private
 
-  def send_email
-    pusts ">>>>> Send Email"
+  def custom_title
+    erros.add(:title, 'No es posible usar ese título.') if title == '1234'
   end
-
-  daniela noguera
 
 end
