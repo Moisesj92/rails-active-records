@@ -55,5 +55,32 @@
   ```
 
 ### Callbacks
-### CRUD
+
+  Los callbacks son métodos que se ejecutan despues o antes de una acción en particular, los mas comunes son antes o despues de hacer un save, create
+  update, destroy y validation.
+
+  se utilizan con de la siguiente manera y se pueden llamar tantas veces como queramos:
+
+  `before_save :send_notification`
+
+  el callback se puede condicionar con un bloque if 
+
+  `before_save :send_notification, if true`
+
+### MÉTODOS DE INSTANCIA
+
+  los métodos de instancia se comportan de distintas maneras, hay algunos métodos que debemos conocer para entender su comportamiento, entre los cuales se encuentran los update_attributes, update_column, update_columns.
+
+  la mejor forma de eliminar varios objetos es el delete_all
+
+  objeto.update perimete actualizar directamente attributos del objeto, el metodo objeto.update_attribute te permite actualizar un atributo a la vez pero puede ser peligroso porque se saltará las validaciones
+
+  objeto.update_column se saltara las validaciones y se saltara los callbaks
+
+  objeto.update_columsn se saltara las validaciones, los callbaks y no actualizara los timestamp
+
 ### Scopes
+
+  son la forma de reutilizar consultas comunes a las bases de datos.
+
+  `scope :metodo, -> {codition}`
