@@ -67,7 +67,7 @@
 
   `before_save :send_notification, if true`
 
-### MÉTODOS DE INSTANCIA
+### Métodos de instancia
 
   los métodos de instancia se comportan de distintas maneras, hay algunos métodos que debemos conocer para entender su comportamiento, entre los cuales se encuentran los update_attributes, update_column, update_columns.
 
@@ -89,10 +89,10 @@
   En rails podemos trabajar 4 tipos de relaciones básicas, relación uno a uno, relación uno a muchos, relación muchos a muchos y relaciones polimórficas.
   No esta demas recordar que para hacer las relaciones en la tablas de la BD deben haber columnas que permitan relacionar mediante claves foraneas las diferentes clases.
 
-### metodos relacionales
-  Los metodos en ruby para definir las relaciones son, has_many, has_one, belongs_to.
+### métodos relacionales
+  Los métodos en ruby para definir las relaciones son, has_many, has_one, belongs_to.
 
-  en los metodos de relaciones se deben colocar el nombre de la tabla y no de la clase, ejemplo:
+  en los métodos de relaciones se deben colocar el nombre de la tabla y no de la clase, ejemplo:
 
   ``` [ruby]
   class Course < ApplicationRecord
@@ -150,7 +150,7 @@
 
   ```
 
-### scopes y metodos de clases
+### Métodos de clases
 
   los métodos de clases permiten que se aplique la lógica a la clase como tal y no a la instancia, y asi filtrar los resultados de una consulta.
 
@@ -160,7 +160,7 @@
 
   los enums permiten definir columnas de typo integer y que cada uno de los valores de esa columna sea representado por un string definido directamente en el modelo.
 
-  los enums generan 2 metodos con ? y ! que permiten saber si la instancia se encuentra o no con ese enum y actualizar su valor, respectivamente
+  los enums generan 2 métodos con ? y ! que permiten saber si la instancia se encuentra o no con ese enum y actualizar su valor, respectivamente
 
   ```[ruby]
     class Course < ApplicationRecord
@@ -174,4 +174,4 @@
 
   ```
 
-  existe una gema ASSM que permite trabajar el cambio de enums con una logica mas completa, y trabaja por maquinas que van haciendo cosas mientras se van cambiando los estados,
+  existe una gema ASSM que permite trabajar el cambio de enums con una lógica mas completa, y trabaja por maquinas que van haciendo cosas mientras se van cambiando los estados,
