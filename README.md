@@ -21,7 +21,7 @@
 
   El método .save permite persistir en la base de datos la instancia del objeto que tenemos creada junto a sus atributos, por asi decirlo el método save
   respeta y usa las convenciones del framework y completa por nosotros el created_at y el updated_at que son datos que el propio rails maneja por debajo
-  para llevar el control de los datos en la BD, con el (validate:false) el metodo save se salta las validaciones de los modelos.
+  para llevar el control de los datos en la BD, con el (validate:false) el método save se salta las validaciones de los modelos.
 
   Como complemento al método save existe una variante .save! que lo que hace de diferente es lanzar un error de ejecución para cuando la persistencia en la base de datos no se pueda completar (al generar un error de sistema hay que tener cuidado en el manejo para que la aplicación no presente comportamientos inesperados).
 
@@ -84,3 +84,94 @@
   son la forma de reutilizar consultas comunes a las bases de datos.
 
   `scope :metodo, -> {codition}`
+
+### Relaciones Entre modelos
+  En rails podemos trabajar 4 tipos de relaciones básicas, relación uno a uno, relación uno a muchos, relación muchos a muchos y relaciones polimórficas.
+  No esta demas recordar que para hacer las relaciones en la tablas de la BD deben haber columnas que permitan relacionar mediante claves foraneas las diferentes clases.
+
+### metodos relacionales
+  Los metodos en ruby para definir las relaciones son, has_many, has_one, belongs_to.
+
+  en los metodos de relaciones se deben colocar el nombre de la tabla y no de la clase, ejemplo:
+
+  ``` [ruby]
+  class Course < ApplicationRecord
+
+    has_many :videos
+
+  end
+  ```
+
+  gem install table_print es una gema que permite visualizar las tablas en consola y se usa mediante el comando tp
+
+  la relación uno a uno se define con belongs_to y belongs_to en ambas clases
+  la relación uno a muchos se define con has_many y belongs_to
+
+  la relación muchos a muchos se define con has_many hacia la tabla intermedia y otro has many hacia la relación final con el método through y una tabla intermedia que contiene las claves foraneas de ambas clases mediante los belongs_to
+
+  ``` [ruby]
+  class Video < ApplicationRecord
+
+    has_many :video_categories
+    has_many :categories, through: :video_categories
+
+  end
+
+  class VideoCategory < ApplicationRecord
+    belongs_to :video
+    belongs_to :category
+  end
+
+  class Category < ApplicationRecord
+
+    has_many :video_categories
+    has_many :videos, through: :video_categories
+
+  end
+  ```
+
+  la relación polimórficas se definen con belongs_to y el atributo polymorphic en la clase que se quiere abstraer para que guarde informacion que pueda relacionarse con distintas clases:
+
+  `rails g model comment content:text commentable:references{polymorphic}`
+
+  ```[ruby]
+
+  class Comment < ApplicationRecord
+    belongs_to :commentable, polymorphic: true
+  end
+
+  class Video < ApplicationRecord
+    has_many :comments, as: :commentable
+  end
+
+  class Course < ApplicationRecord
+    has_many :comments, as: :commentable
+  end
+
+  ```
+
+### scopes y metodos de clases
+
+  los métodos de clases permiten que se aplique la lógica a la clase como tal y no a la instancia, y asi filtrar los resultados de una consulta.
+
+  se usan con la palabra self.
+
+### Enums
+
+  los enums permiten definir columnas de typo integer y que cada uno de los valores de esa columna sea representado por un string definido directamente en el modelo.
+
+  los enums generan 2 metodos con ? y ! que permiten saber si la instancia se encuentra o no con ese enum y actualizar su valor, respectivamente
+
+  ```[ruby]
+    class Course < ApplicationRecord
+
+    has_many :videos
+    has_many :categories, through: :videos, source: :categories
+    has_many :comments, as: :commentable
+
+    # draft? - published!
+    enum status: [:draft, :published]
+
+  ```
+
+  existe una gema ASSM que permite trabajar el cambio de enums con una logica mas completa, y trabaja por maquinas que van haciendo cosas mientras se van cambiando los estados,

@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer          not null, primary key
+#  content          :text
+#  commentable_type :string           not null
+#  commentable_id   :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+one:
+  content: MyText
+  commentable: one
+  commentable_type: Commentable
+
+two:
+  content: MyText
+  commentable: two
+  commentable_type: Commentable
